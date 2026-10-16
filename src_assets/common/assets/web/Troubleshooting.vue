@@ -650,15 +650,15 @@
         },
 
         showVirtualhid() {
-          return this.gamepadDriver !== 'none' && (this.platform === 'macos' || this.gamepadDriver !== 'vigembus');
+          return this.gamepadDriver !== 'none' && (this.platform === 'macos' || (this.gamepadDriver !== 'vigembus' && this.gamepadDriver !== 'esp32_bridge'));
         },
 
         showVigembus() {
-          return this.platform === 'windows' && this.gamepadDriver !== 'none' && this.gamepadDriver !== 'virtualhid';
+          return this.platform === 'windows' && this.gamepadDriver !== 'none' && this.gamepadDriver !== 'virtualhid' && this.gamepadDriver !== 'esp32_bridge';
         },
 
         showVirtualhidBenefits() {
-          return this.platform === 'windows' && this.gamepadDriver !== 'none' && !(this.virtualhid.installed && this.virtualhidLicense.licensed);
+          return this.platform === 'windows' && this.gamepadDriver !== 'none' && this.gamepadDriver !== 'esp32_bridge' && !(this.virtualhid.installed && this.virtualhidLicense.licensed);
         },
 
         virtualInputDescriptionKey() {
@@ -673,6 +673,9 @@
           }
           if (this.gamepadDriver === 'vigembus') {
             return 'troubleshooting.virtual_gamepad_vigembus_desc';
+          }
+          if (this.gamepadDriver === 'esp32_bridge') {
+            return 'troubleshooting.virtual_gamepad_esp32_bridge_desc';
           }
           if (this.virtualhid.installed && this.virtualhidLicense.licensed) {
             return this.gamepadDriver === 'all' ?

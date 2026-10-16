@@ -273,6 +273,11 @@
           return this.buildVigembusNotice(vigembusUsable);
         }
 
+        if (this.gamepadDriver === 'esp32_bridge') {
+          // The bridge needs neither the broker nor a license.
+          return null;
+        }
+
         if (this.virtualhid.installed) {
           return this.buildInstalledVirtualhidNotice(vigembusUsable);
         }
