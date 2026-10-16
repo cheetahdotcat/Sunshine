@@ -335,6 +335,8 @@ jobs:
           --gtest_filter=SystemTrayTest.InitializesTrayForWorkflowConfiguration
 
       - name: Configure Windows tray screenshots
+        # Runner-environment setup that also fails upstream; don't let it block packaging.
+        continue-on-error: true
         uses: LizardByte/tray/.github/actions/configure-windows-tray-screenshots@master
 
       - name: Run tests
@@ -399,6 +401,7 @@ jobs:
             a "../artifacts/Sunshine-${{ matrix.name }}-debuginfo.7z" "*.dbg"
 
       - name: Upload Artifacts
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: build-${{ matrix.name }}
