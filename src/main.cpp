@@ -286,7 +286,7 @@ int main(int argc, char *argv[]) {
   }
 
 #ifdef _WIN32
-  // An attached bridge needs no license, so it wins over the licensed default.
+  // Check for an attached bridge before applying the default selection.
   config::select_esp32_bridge_if_detected(!lvh::find_esp32_bridge_ports().empty());
   config::select_all_gamepad_drivers_if_licensed(lvh::get_license_status().license.licensed());
 #endif

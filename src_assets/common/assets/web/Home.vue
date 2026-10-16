@@ -274,7 +274,7 @@
         }
 
         if (this.gamepadDriver === 'esp32_bridge') {
-          // The bridge needs neither the broker nor a license.
+          // Virtual HID Broker notices do not apply to the bridge.
           return null;
         }
 

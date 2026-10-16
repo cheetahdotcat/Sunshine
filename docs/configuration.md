@@ -367,8 +367,7 @@ consent prompt for directory ACLs, so the Web UI shows setup steps for correctin
     <tr>
         <td>esp32_bridge</td>
         <td>Windows only: publish gamepads, keyboard, and mouse through an ESP32-S3 USB bridge plugged into this PC.
-            The bridge enumerates as real USB devices, so no virtual-device driver or license is needed, and
-            Virtual HID Broker notices are hidden. It holds two devices: keyboard and mouse share one, which leaves
+            The bridge enumerates as USB devices, and Virtual HID Broker notices are not shown. It holds two devices: keyboard and mouse share one, which leaves
             one gamepad, and only one Xbox controller fits. Sunshine selects this automatically on first start when
             a bridge is attached and no backend has been chosen.</td>
     </tr>

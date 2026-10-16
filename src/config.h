@@ -42,7 +42,7 @@ namespace config {
   inline constexpr std::string_view GAMEPAD_DRIVER_ALL = "all";  ///< Allow every available Windows virtual gamepad driver.
   inline constexpr std::string_view GAMEPAD_DRIVER_VIRTUALHID = "virtualhid";  ///< Use Virtual HID Broker for gamepads on Windows or macOS.
   inline constexpr std::string_view GAMEPAD_DRIVER_VIGEMBUS = "vigembus";  ///< Allow only ViGEmBus for Windows gamepads.
-  inline constexpr std::string_view GAMEPAD_DRIVER_ESP32_BRIDGE = "esp32_bridge";  ///< Publish gamepads, keyboard, and mouse through an ESP32-S3 USB bridge; no driver or license needed.
+  inline constexpr std::string_view GAMEPAD_DRIVER_ESP32_BRIDGE = "esp32_bridge";  ///< Publish gamepads, keyboard, and mouse through an ESP32-S3 USB bridge.
   inline constexpr std::string_view GAMEPAD_DRIVER_NONE = "none";  ///< Disable virtual gamepads on Windows and macOS.
 
   // track modified config options
