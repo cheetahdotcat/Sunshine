@@ -704,7 +704,7 @@
     "virtual_gamepad_macos_desc": "Virtual HID Broker creates Xbox, PlayStation, Nintendo Switch Pro, and Generic gamepads on macOS. Install the separate broker and activate its machine license to use controller input.",
     "virtual_gamepad_none_desc": "Virtual gamepad emulation is disabled in Input configuration.",
     "virtual_gamepad_unset_desc": "Choose which Windows virtual gamepad drivers Sunshine may use. Virtual HID Broker is an optional paid upgrade. ViGEmBus has limited features and has reached end of life.",
-    "virtual_gamepad_esp32_bridge_desc": "Sunshine is using an ESP32-S3 USB bridge. Gamepads, keyboard, and mouse appear as USB devices of the bridge. The bridge holds two devices: keyboard and mouse share one, which leaves one gamepad, and only one Xbox controller fits.",
+    "virtual_gamepad_esp32_bridge_desc": "Sunshine is using an ESP32-S3 USB bridge. Gamepads, keyboard, and mouse appear as USB devices of the bridge. The bridge holds two devices: keyboard and mouse share one, which leaves one gamepad, and only one Xbox controller fits. The first time Sunshine connects, the bridge LED blinks quickly: press the BOOT button on the bridge to pair it with this PC.",
     "virtual_gamepad_vigembus_desc": "Sunshine is using ViGEmBus for limited Xbox 360 and DualShock 4 emulation and SendInput for keyboard and mouse. ViGEmBus has reached end of life. Consider upgrading to Virtual HID Broker for broader, actively supported virtual input.",
     "virtualhid_benefit_features": "Supports controller-specific features such as motion, touchpads, LEDs, and adaptive triggers when available.",
     "virtualhid_benefit_features_title": "Modern Controller Features",

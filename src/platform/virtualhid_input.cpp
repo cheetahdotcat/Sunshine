@@ -619,6 +619,7 @@ namespace platf::virtualhid {
     options.backend = backend;
     options.log_callback = log_virtualhid_message;
     options.esp32_bridge_port = config::input.esp32_bridge_port;
+    options.esp32_bridge_client_name = "Sunshine";
     // The bridge is an explicit gamepad_driver choice; never switch to it behind another choice.
     options.esp32_bridge_autodetect = false;
     return lvh::Runtime::create(options);
