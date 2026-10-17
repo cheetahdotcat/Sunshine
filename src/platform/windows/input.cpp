@@ -1336,7 +1336,8 @@ namespace platf {
       caps |= platform_caps::controller_touch;
     }
 
-    if (config::input.native_pen_touch) {
+    // The bridge has no pen or touchscreen slot; clients fall back to mouse input.
+    if (config::input.native_pen_touch && !virtualhid::esp32_bridge_selected()) {
       const auto runtime = virtualhid::create_runtime();
       if (runtime) {
         const auto &capabilities = runtime->capabilities();

@@ -2107,16 +2107,22 @@ namespace confighttp {
     std::string backend_name;
     std::string runtime_error_message;
 
-    try {
-      const auto runtime = platf::virtualhid::create_runtime();
-      if (runtime) {
-        const auto &capabilities = runtime->capabilities();
-        backend_name = capabilities.backend_name;
-        requires_installed_driver = capabilities.requires_installed_driver;
-        output_tree = build_driver_status(driver_detected || capabilities.supports_gamepad, version_str, minimum_version);
+    if (platf::virtualhid::esp32_bridge_selected()) {
+      // The input context owns the bridge port; report it without opening a second runtime.
+      backend_name = "esp32_bridge";
+      requires_installed_driver = false;
+    } else {
+      try {
+        const auto runtime = platf::virtualhid::create_runtime();
+        if (runtime) {
+          const auto &capabilities = runtime->capabilities();
+          backend_name = capabilities.backend_name;
+          requires_installed_driver = capabilities.requires_installed_driver;
+          output_tree = build_driver_status(driver_detected || capabilities.supports_gamepad, version_str, minimum_version);
+        }
+      } catch (const std::bad_alloc &exception) {
+        runtime_error_message = exception.what();
       }
-    } catch (const std::bad_alloc &exception) {
-      runtime_error_message = exception.what();
     }
 
     output_tree["backend_name"] = backend_name;

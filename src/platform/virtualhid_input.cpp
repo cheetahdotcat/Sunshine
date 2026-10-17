@@ -511,7 +511,7 @@ namespace platf::virtualhid {
   }  // namespace
 
   input_context_t::input_context_t():
-      input_context_t {config::input.gamepad_driver == config::GAMEPAD_DRIVER_ESP32_BRIDGE ? lvh::BackendKind::esp32_bridge : lvh::BackendKind::platform_default} {}
+      input_context_t {configured_backend()} {}
 
   input_context_t::input_context_t(lvh::BackendKind backend):
       runtime {create_runtime(backend)} {
@@ -604,6 +604,14 @@ namespace platf::virtualhid {
         log_failure("create libvirtualhid pen tablet"sv, created.status);
       }
     }
+  }
+
+  bool esp32_bridge_selected() {
+    return config::input.gamepad_driver == config::GAMEPAD_DRIVER_ESP32_BRIDGE;
+  }
+
+  lvh::BackendKind configured_backend() {
+    return esp32_bridge_selected() ? lvh::BackendKind::esp32_bridge : lvh::BackendKind::platform_default;
   }
 
   std::unique_ptr<lvh::Runtime> create_runtime(lvh::BackendKind backend) {
