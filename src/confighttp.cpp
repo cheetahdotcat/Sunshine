@@ -33,11 +33,10 @@
 #endif
 
 #ifdef _WIN32
-  #include <libvirtualhid/esp32_bridge.hpp>
-
   #include "platform/windows/misc.h"
   #include "platform/windows/utf_utils.h"
 
+  #include <libvirtualhid/esp32_bridge.hpp>
   #include <Windows.h>
 #elif defined(__APPLE__)
   #include "platform/macos/misc.h"
