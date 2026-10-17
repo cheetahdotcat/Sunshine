@@ -33,6 +33,8 @@
 #endif
 
 #ifdef _WIN32
+  #include <libvirtualhid/esp32_bridge.hpp>
+
   #include "platform/windows/misc.h"
   #include "platform/windows/utf_utils.h"
 
@@ -2190,6 +2192,47 @@ namespace confighttp {
   }
 
   /**
+   * @brief Get the connection and pairing state of the ESP32-S3 USB bridge.
+   *
+   * @param response The HTTP response object.
+   * @param request The HTTP request object.
+   *
+   * @api_examples{/api/esp32-bridge/status|:| GET|:| null}
+   */
+  void getEsp32BridgeStatus(const resp_https_t &response, const req_https_t &request) {
+    if (!authenticate(response, request)) {
+      return;
+    }
+
+    print_req(request);
+
+    nlohmann::json output_tree;
+    output_tree["selected"] = config::input.gamepad_driver == config::GAMEPAD_DRIVER_ESP32_BRIDGE;
+#ifdef _WIN32
+    const auto status = lvh::esp32_bridge_status();
+    output_tree["active"] = status.active;
+    output_tree["connected"] = status.connected;
+    output_tree["awaiting_pairing"] = status.awaiting_pairing;
+    output_tree["pairing_required"] = status.pairing_required;
+    output_tree["port"] = status.port;
+    output_tree["device_id"] = status.device_id;
+    output_tree["firmware_version"] = status.firmware_version;
+    // Discovery reads USB serial numbers only; it never opens a port.
+    output_tree["detected"] = !lvh::find_esp32_bridge_ports().empty();
+#else
+    output_tree["active"] = false;
+    output_tree["connected"] = false;
+    output_tree["awaiting_pairing"] = false;
+    output_tree["pairing_required"] = false;
+    output_tree["port"] = "";
+    output_tree["device_id"] = "";
+    output_tree["firmware_version"] = "";
+    output_tree["detected"] = false;
+#endif
+    send_response(response, output_tree);
+  }
+
+  /**
    * @brief Get the current libvirtualhid machine license status.
    *
    * @param response HTTP response object.
@@ -2517,6 +2560,7 @@ namespace confighttp {
     server.resource["^/api/virtual-input/license$"]["GET"] = getVirtualInputLicense;
     server.resource["^/api/virtual-input/license$"]["POST"] = updateVirtualInputLicense;
     server.resource["^/api/virtual-input/status$"]["GET"] = getVirtualInputStatus;
+    server.resource["^/api/esp32-bridge/status$"]["GET"] = getEsp32BridgeStatus;
 
     // static/dynamic resources
     server.resource["^/images/sunshine.ico$"]["GET"] = getFaviconImage;
